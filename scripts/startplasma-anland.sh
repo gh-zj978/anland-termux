@@ -150,7 +150,8 @@ start_audio_services() {
 
     export PIPEWIRE_RUNTIME_DIR="$XDG_RUNTIME_DIR"
     export PULSE_RUNTIME_PATH="$XDG_RUNTIME_DIR/anland-pulse"
-    export PULSE_SERVER="unix:$PULSE_RUNTIME_PATH/native"
+    #export PULSE_SERVER="unix:$PULSE_RUNTIME_PATH/native"
+    export PULSE_SERVER="127.0.0.1"
     mkdir -p "$audio_log_dir" "$PULSE_RUNTIME_PATH"
 
     if [[ ! -S $XDG_RUNTIME_DIR/pipewire-0 ]]; then
