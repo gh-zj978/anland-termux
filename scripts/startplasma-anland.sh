@@ -46,6 +46,7 @@ enable_kgsl() {
 
 show_starting_message() {
     printf '%b\n' "${GREEN}Starting KDE Plasma. Please switch to the \"Anland Termux\" app.${NC}"
+    am start --user 0 com.anland.termux/.MainActivity
 }
 
 run_plasma_command() {
