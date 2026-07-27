@@ -151,8 +151,8 @@ start_audio_services() {
 
     export PIPEWIRE_RUNTIME_DIR="$XDG_RUNTIME_DIR"
     export PULSE_RUNTIME_PATH="$XDG_RUNTIME_DIR/anland-pulse"
-    #export PULSE_SERVER="unix:$PULSE_RUNTIME_PATH/native"
-    export PULSE_SERVER="127.0.0.1"
+    export PULSE_SERVER="unix:$PULSE_RUNTIME_PATH/native"
+    #export PULSE_SERVER="127.0.0.1"
     mkdir -p "$audio_log_dir" "$PULSE_RUNTIME_PATH"
 
     if [[ ! -S $XDG_RUNTIME_DIR/pipewire-0 ]]; then
@@ -236,7 +236,7 @@ start_termux_native() {
 
 run_container_session() {
     trap stop_audio_services EXIT
-    start_audio_services
+    PULSE_SERVER="127.0.0.1"
 
     if [[ ${ANLAND_SOFTWARE_SESSION:-0} -eq 1 ]]; then
         kwin_wayland plasmashell > /dev/null 2>&1 &
@@ -271,7 +271,7 @@ start_container() {
     sudo mkdir -p "$XDG_RUNTIME_DIR"
     sudo chown "$(id -un):$(id -gn)" "$XDG_RUNTIME_DIR"
     chmod 700 "$XDG_RUNTIME_DIR"
-    stop_audio_services
+    
     rm -f "$XDG_RUNTIME_DIR"/wayland-* > /dev/null 2>&1
     sudo mkdir -p /tmp/.X11-unix
     sudo chmod 1777 /tmp/.X11-unix
