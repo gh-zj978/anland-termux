@@ -230,13 +230,14 @@ start_termux_native() {
 
     rm -f "$XDG_RUNTIME_DIR"/wayland-* > /dev/null 2>&1
     show_starting_message
+    am start --user 0 com.anland.termux/.MainActivity
     run_plasma_command dbus-run-session startplasma-wayland
 }
 
 run_container_session() {
     trap stop_audio_services EXIT
     PULSE_SERVER="127.0.0.1"
-
+    am start --user 0 com.anland.termux/.MainActivity
     if [[ ${ANLAND_SOFTWARE_SESSION:-0} -eq 1 ]]; then
         kwin_wayland plasmashell > /dev/null 2>&1 &
         local desktop_pid=$!
@@ -292,4 +293,3 @@ else
     start_container
 fi
 
-am start --user 0 com.anland.termux/.MainActivity
